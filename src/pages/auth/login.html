@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="../../assets/calendar-clock-svgrepo-com.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>minsu-class-scheduler-system</title>
+    <link type="text/css" rel="stylesheet" href="../../style.css"/>
+</head>
+<body class="bg-white flex justify-center items-center h-screen"> 
+    
+    <form id="loginForm" class="border-2 bg-gray-200 flex flex-col gap-1.5 p-4 rounded-xl">
+        <div class="">
+            <i class="bi bi-envelope"></i>
+            <label class="">Email</label>
+        </div>
+        <div class="flex flex-col">
+            <input id="email_input" type="text" class="bg-white p-1 rounded-md grow"/>
+            <label id="email_input_error" class="text-red-500"></label>
+        </div>
+        <div>
+            <i class="bi bi-key"></i>
+            <label class="">Password</label>
+        </div>
+        <div class="flex flex-col">
+            <div class="flex">
+                <input id="password_input" type="password" class="bg-white p-1 rounded-l-md"/>
+                <button type="button" id="viewPasswordInputBtn" class="p-1 rounded-r-md bg-white">
+                    <i class="bi bi-eye-slash"></i>
+                </button>
+            </div>
+            <label id="password_input_error" class="text-red-500"></label>
+        </div>
+        <button type="submit" class="bg-[var(--color-primary)] hover:scale-110  hover:rounded-2xl duration-150 cursor-pointer rounded-md font-bold pt-2 pb-2 mt-6">Login</button>
+    </form>
+</body>
+</html>
+
+
+<script lang="js" type="module">
+import { z } from "zod"; // https://zod.dev/basics
+import { login } from '../../js/api/auth.js'
+
+const loginForm = document.getElementById('loginForm')
+const viewPasswordInputBtn = document.getElementById('viewPasswordInputBtn')
+const email_input = document.getElementById('email_input')
+const email_input_error = document.getElementById('email_input_error')
+const password_input = document.getElementById('password_input')
+const password_input_error = document.getElementById('password_input_error')
+
+
+let isPasswordInputVisible = false;
+
+const togglePasswordVisibility = () => {
+    if (isPasswordInputVisible) {
+        viewPasswordInputBtn.innerHTML = `<i class="bi bi-eye-slash"></i>`
+        password_input.setAttribute("type", "password")
+    }
+    else {
+        viewPasswordInputBtn.innerHTML = `<i class="bi bi-eye"></i>`
+        password_input.setAttribute("type", "text")
+    } 
+    isPasswordInputVisible = !isPasswordInputVisible
+}
+
+
+
+const userSchema = z.object({
+    email: z.string().email(),
+    password: z.string().min(8, 'minimum of 8 characters').max(64, 'maximum of 64 characters'),
+});
+
+const submitForm = (event) => {
+    event.preventDefault();
+    const result = userSchema.safeParse({
+        email: email_input.value,
+        password: password_input.value
+    });
+    
+
+    
+    if (!result.success) {
+        email_input_error.innerText = result.error.format().email._errors
+        password_input_error.innerText = result.error.format().password._errors
+        console.log(result.error.format());
+    } 
+    else {
+        console.log(result.data);
+        // send data to API
+        login(result.data);
+    }
+}
+
+
+viewPasswordInputBtn.addEventListener('click', togglePasswordVisibility)
+loginForm.addEventListener('submit', submitForm)
+
+</script>
+
+<style>
+@import "../../style.css";
+
+
+</style>
+
+
+
+

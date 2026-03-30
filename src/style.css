@@ -1,0 +1,56 @@
+@import "tailwindcss";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+
+/* https://ui.nuxt.com/docs/getting-started/theme/css-variables#colors */
+:root {
+    --color-primary: #00dc82;
+    --color-secondary: lightblue;
+    --color-success: lime;
+    --color-info: blue;
+    --color-warning: yellow;
+    --color-error: red;
+
+    --text-dimmed: var(--ui-color-neutral-400);
+    --text-muted: var(--ui-color-neutral-500);
+    --text-toned: var(--ui-color-neutral-600);
+    --text: var(--ui-color-neutral-700);
+    --text-highlighted: var(--ui-color-neutral-900);
+    --text-inverted: white;
+
+    --bg: white;
+    --bg-muted: darkgrey;
+    --bg-elevated: gray;
+    --bg-accented: rgb(104, 104, 104);
+    --bg-inverted: rgb(45, 45, 45);
+
+    --border: var(--ui-color-neutral-200);
+    --border-muted: var(--ui-color-neutral-200);
+    --border-accented: var(--ui-color-neutral-300);
+    --border-inverted: var(--ui-color-neutral-900);
+}
+
+.dark {
+    --bg: black
+
+}
+
+@layer base {
+    * {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    h1 {
+        @apply text-2xl text-[var(--color-primary)] font-semibold;
+    }
+    
+}
+
+/* @layer components {
+    .card {
+        @apply rounded-lg card;
+    }
+} */
+
+/* @layer utilities {
+    
+} */
