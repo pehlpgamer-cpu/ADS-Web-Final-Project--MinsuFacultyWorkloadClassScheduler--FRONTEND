@@ -28,7 +28,16 @@ export const logout = async (session_token) => {
     .catch(error => console.error('Login error:', error));
 }
 
-export const register = () => {
-    
+export const register = async (input_data) => {
+    return fetch(baseUrl.backend + '/v1/auth/register.php', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(input_data)
+    })
+    .then(res => res.json())
+    .then(data => data)
+    .catch(error => console.error('Login error:', error));
 }
 
