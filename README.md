@@ -6,4 +6,4 @@
 - Chartjs 4.5.1
 - zod 4.3.6
 - dotenv 17.3.1
-- 
+- vitest 4.1.5
