@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link type="text/css" rel="stylesheet" href="../../style.css"/>
+    <link rel="icon" type="image/svg+xml" href="../../assets/calendar-clock-svgrepo-com.svg" />
+    <title>minsu-class-scheduler-system</title>
+</head>
+<body class="authenticatedBody"> 
+    <aside id="sideNavigationBar" class="authenticatedAside"></aside>
+    
+    <main class="authenticatedMain">
+        <div class="bg-red-200 grow h-[50vh]">fgdsgh</div>
+        <div class="bg-orange-200 grow h-[50vh]">fhdgfh</div>
+        <div class="bg-yellow-200 grow h-[50vh]">fhdgfh</div>
+        <div class="bg-blue-200 grow h-[50vh]">fhdgfh</div>
+    </main>
+</body>
+</html>
+
+
+<script lang="js" type="module">
+import { z } from "zod"; // https://zod.dev/basics
+// import {  } from '../../js/api/auth.js'
+import { routes, addLink } from '../../js/routes.js'
+import { navButton } from '../../js/components/navButton.js'
+import { sideBarNav } from '../../js/components/sideBarNav.js'
+
+
+
+
+const sideNavigationBar = document.getElementById('sideNavigationBar');
+const links = 
+  navButton('bi bi-house', 'dashboard', routes.program_chair.dashboard) +
+  navButton('bi bi-box-arrow-in-left', 'scheduler', routes.program_chair.scheduler) + 
+  navButton('bi bi-vector-pen', 'account', routes.authenticated.account)
+sideNavigationBar.innerHTML = sideBarNav('', links, '');
+
+
+
+</script>
+
+<style>
+@import "../../style.css";
+
+.authenticatedBody {
+    @apply bg-white flex items-center min-h-screen h-fit w-screen;
+}
+
+.authenticatedAside {
+    @apply h-screen w-40 self-start;
+}
+
+.authenticatedMain {
+    @apply flex flex-col w-screen grow;
+}
+
+</style>
+
+
+
+

@@ -15,19 +15,22 @@ export const routes = {
         home: url('/index'),
         login: url('/public/login'),
         register: url('/public/register'),
+        about: '',
+        contacts: ''
     },
     
     admin: {
-        admin_dashboard: url('/admin/admin_dashboard'),
-        manage_users: url('/admin/manage_users'),
-        manage_facilities: url('/admin/manage_facilities'),
-        manage_classrooms: url('/admin/manage_classrooms'),
-        manage_instructors: url('admin/manage_instructors'),
-        manage_courses: url('/admin/manage_courses')
+        dashboard: url('/admin/dashboard'),
+        audit_trail: url('/admin/audit_trail'),
+        users: url('/admin/manage_users'),
+        facilities: url('/admin/facilities'),
+        classrooms: url('/admin/classrooms'),
+        instructors: url('admin/instructors'),
+        courses: url('/admin/courses')
     },
     program_chair: {
-        program_chair_dashboard: url('/program_chair/program_chair_dashboard'),
-        scheduler: url('program_chair/scheduler'),
+        dashboard: url('/program_chair/dashboard'),
+        scheduler: url('/program_chair/scheduler'),
     },
     authenticated: {
         account: url('authenticated/account'),
@@ -39,7 +42,7 @@ export const routes = {
 // ------- ROUTE COLLECTIONS --------------------------------------------------------------------------------------------------------------------
 
 export const routeCollections = {
-    
+    // ????
 } 
 
 

@@ -1,14 +1,14 @@
-export const sideBarNav = (header, routeLinks, footer) =>
+export const sideBarNav = (header, htmlRouteLinks, footer) =>
 {
     const sideBarNav = 
     `
-        <aside class="hidden w-22 md:flex">
+        <aside class="w-12 md:w-38 h-screen fixed justify-center md:flex p-2 bg-green-800">
             <header>
                 ${header}
             </header>
             
-            <main>
-                ${routeLinks}
+            <main class="grow flex flex-col gap-1.5">
+                ${htmlRouteLinks}
             </main>
             
             <footer>
