@@ -1,6 +1,6 @@
 
 import { baseUrl } from "../js/configs.js"
-const basePageUrl = baseUrl.frontend + '/src/pages' 
+const basePageUrl = window.location.origin + '/src/pages' 
 
 const url = (link) => {
     return `${basePageUrl}${link}.html`
@@ -12,7 +12,7 @@ export const addLink = (htmlELement, route) => {
 
 export const routes = {
     public: {
-        home: url('/index.html'),
+        home: url('/index'),
         login: url('/public/login'),
         register: url('/public/register'),
     },
@@ -38,7 +38,9 @@ export const routes = {
 
 // ------- ROUTE COLLECTIONS --------------------------------------------------------------------------------------------------------------------
 
-
+export const routeCollections = {
+    
+} 
 
 
 

@@ -7,23 +7,38 @@
     <title>minsu-class-scheduler-system</title>
     <link rel="stylesheet" href="./src/style.css"/>
   </head>
-  <body class="test"> 
-    
-    <a id="loginPageBtn" class="hover:scale-115 hover:border hover:rounded-2xl duration-150 p-4">login page</a>
+  <body class="bg-white flex flex-col items-center h-screen"> 
+    <header id="header" class="w-screen">
+
+    </header>
+    <main class="w-screen grow flex flex-col">
+      <h1 class="text-6xl self-center p-10">MINSU bongabong campus<br>Faculty workload & scheduler</h1>
+    </main>
   </body>
 </html>
-
-<script type="module">
-  import {routes, addLink} from './src/js/routes.js'
-  import { top}
-
-  const loginPageBtn = document.getElementById('loginPageBtn');
-
-  addLink(loginPageBtn, routes.public.login);
-
-</script>
 
 <style>
   @import "./src/style.css";
   
 </style>
+
+<script type="module">
+  import {routes, addLink} from './src/js/routes.js'
+  import { topBarNav } from './src/js/components/topBarNav.js'
+  import { navButton } from './src/js/components/navButton.js'
+
+  const header = document.getElementById('header');
+  const loginPageBtn = document.getElementById('loginPageBtn');
+
+  const links = 
+  navButton('bi bi-house', 'home', routes.public.home) +
+  navButton('bi bi-box-arrow-in-left', 'login', routes.public.login) + 
+  navButton('bi bi-vector-pen', 'register', routes.public.register)
+
+  header.innerHTML = topBarNav(links);
+
+  // addLink(loginPageBtn, routes.public.login);
+
+</script>
+
+

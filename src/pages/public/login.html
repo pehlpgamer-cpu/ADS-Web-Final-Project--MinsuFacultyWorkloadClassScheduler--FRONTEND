@@ -7,56 +7,63 @@
     <link rel="icon" type="image/svg+xml" href="../../assets/calendar-clock-svgrepo-com.svg" />
     <title>minsu-class-scheduler-system</title>
 </head>
-<body class="bg-white flex justify-center items-center h-screen"> 
+<body class="bg-white flex flex-col items-center h-screen"> 
+    <header id="header" class="w-screen"></header>
     
-    <form id="loginForm" class="border-2 bg-gray-200 flex flex-col gap-1.5 p-4 rounded-xl">
-        <!-- EMAIL -->
-        <section class="flex flex-col">
-            <div class="">
-                <i class="bi bi-envelope"></i>
-                <label class="">Email</label>
-            </div>
-            <div class="flex flex-col">
-                <input id="email_input" type="text" class="bg-white p-1 rounded-md grow"/>
-                <label id="email_input_error" class="text-red-500"></label>
-            </div>
-        </section>
-
-        <!-- PASSWORD -->
-        <section class="flex flex-col">
-            <div>
-                <i class="bi bi-key"></i>
-                <label class="">Password</label>
-            </div>
-            <div class="flex flex-col">
-                <div class="flex">
-                    <input id="password_input" type="password" class="bg-white p-1 rounded-l-md"/>
-                    <button type="button" id="viewPasswordInputBtn" class="p-1 rounded-r-md bg-white">
-                        <i class="bi bi-eye-slash"></i>
-                    </button>
+    <main class="flex items-center justify-center w-screen grow">
+        <form id="loginForm" class=" bg-gray-200 flex flex-col gap-1.5 p-4 rounded-xl h-fit"> <!-- class="opacity-0 animate-[fadeIn_0.5s_ease-out_forwards]" -->
+            <!-- EMAIL -->
+            <section class="flex flex-col">
+                <div class="">
+                    <i class="bi bi-envelope"></i>
+                    <label class="">Email</label>
                 </div>
-                <label id="password_input_error" class="text-red-500"></label>
-            </div>
-        </section>
-
-        <!-- BTN & LINK -->
-        <section class="flex flex-col">
-            <button type="submit" class="bg-[var(--color-primary)] hover:scale-110  hover:rounded-2xl duration-150 cursor-pointer rounded-md font-bold pt-2 pb-2 mt-6">
-                Login
-            </button>
-            <a id="createAnAccountBtn" class="text-sm flex justify-center underline hover:scale-110 duration-150 cursor-pointer">
-                Create an account?
-            </a>
-        </section>
-    </form>
+                <div class="flex flex-col">
+                    <input id="email_input" type="text" class="bg-white p-1 rounded-md grow"/>
+                    <label id="email_input_error" class="text-red-500"></label>
+                </div>
+            </section>
+    
+            <!-- PASSWORD -->
+            <section class="flex flex-col">
+                <div>
+                    <i class="bi bi-key"></i>
+                    <label class="">Password</label>
+                </div>
+                <div class="flex flex-col">
+                    <div class="flex">
+                        <input id="password_input" type="password" class="bg-white p-1 rounded-l-md"/>
+                        <button type="button" id="viewPasswordInputBtn" class="p-1 rounded-r-md bg-white">
+                            <i class="bi bi-eye-slash"></i>
+                        </button>
+                    </div>
+                    <label id="password_input_error" class="text-red-500"></label>
+                </div>
+            </section>
+    
+            <!-- BTN & LINK -->
+            <section class="flex flex-col">
+                <button type="submit" class="bg-[var(--color-primary)] hover:scale-110  hover:rounded-2xl duration-150 cursor-pointer rounded-md font-bold pt-2 pb-2 mt-6">
+                    Login
+                </button>
+                <a id="createAnAccountBtn" class="text-sm flex justify-center underline hover:scale-110 duration-150 cursor-pointer">
+                    Create an account?
+                </a>
+            </section>
+        </form>
+    </main>
 </body>
 </html>
 
 
 <script lang="js" type="module">
 import { z } from "zod"; // https://zod.dev/basics
-import { routes, addLink } from '../../js/routes.js'
 import { login } from '../../js/api/auth.js'
+import { routes, addLink } from '../../js/routes.js'
+import { topBarNav } from '../../js/components/topBarNav.js'
+import { navButton } from '../../js/components/navButton.js'
+
+
 
 const loginForm = document.getElementById('loginForm')
 const viewPasswordInputBtn = document.getElementById('viewPasswordInputBtn')
@@ -113,6 +120,12 @@ const submitForm = (event) => {
     }
 }
 
+const header = document.getElementById('header');
+const links = 
+  navButton('bi bi-house', 'home', routes.public.home) +
+  navButton('bi bi-box-arrow-in-left', 'login', routes.public.login) + 
+  navButton('bi bi-vector-pen', 'register', routes.public.register)
+header.innerHTML = topBarNav(links);
 
 viewPasswordInputBtn.addEventListener('click', togglePasswordVisibility)
 loginForm.addEventListener('submit', submitForm)
