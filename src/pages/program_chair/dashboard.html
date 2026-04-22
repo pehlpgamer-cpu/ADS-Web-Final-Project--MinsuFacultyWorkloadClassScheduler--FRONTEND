@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link type="text/css" rel="stylesheet" href="../../style.css"/>
     <link rel="icon" type="image/svg+xml" href="../../assets/calendar-clock-svgrepo-com.svg" />
-    <title>minsu-class-scheduler-system</title>
+    <title>Admin dashboard</title>
 </head>
 <body class="authenticatedBody"> 
     <aside id="sideNavigationBar" class="authenticatedAside"></aside>
@@ -26,16 +26,14 @@ import { z } from "zod"; // https://zod.dev/basics
 import { routes, addLink } from '../../js/routes.js'
 import { navButton } from '../../js/components/navButton.js'
 import { sideBarNav } from '../../js/components/sideBarNav.js'
+import { programChairNavButtons } from '../../js/components/navButtonCollections.js'
 
 
 
 
 const sideNavigationBar = document.getElementById('sideNavigationBar');
-const links = 
-  navButton('bi bi-house', 'dashboard', routes.program_chair.dashboard) +
-  navButton('bi bi-box-arrow-in-left', 'scheduler', routes.program_chair.scheduler) + 
-  navButton('bi bi-vector-pen', 'account', routes.authenticated.account)
-sideNavigationBar.innerHTML = sideBarNav('', links, '');
+
+sideNavigationBar.innerHTML = sideBarNav('', programChairNavButtons, '');
 
 
 

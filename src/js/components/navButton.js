@@ -10,7 +10,12 @@ export const navButton = (iconStyle, label, link, addStyle = '', highlighted = f
 
     const navButton = 
     `
-        <a type="button" class="${addStyle} ${style} flex flex-row items-center justify-center gap-1.5 p-1.5 rounded-md hover:scale-105 duration-100 ease-in-out cursor-pointer" href="${link}">
+        <a type="button" class="
+            ${addStyle} ${style} 
+            flex flex-row items-center justify-start gap-1.5 p-1.5 pl-2.5 pr-2.5
+            rounded-md hover:scale-105 duration-100 ease-in-out cursor-pointer" 
+            href="${link}">
+            
             <i class="${iconStyle} cursor-pointer"></i>
             <label class="hidden md:flex cursor-pointer">
                 ${label}

@@ -1,6 +1,6 @@
 
 
-const basePageUrl = window.location.origin + '/src/pages' 
+const basePageUrl = window.location.origin + '/src/pages/' 
 
 const url = (link) => {
     return `${basePageUrl}${link}.html`
@@ -12,26 +12,32 @@ export const addLink = (htmlELement, route) => {
 
 export const routes = {
     public: {
-        home: url('/index'),
-        login: url('/public/login'),
-        register: url('/public/register'),
-        about: url('/public/about'),
-        contacts: url('/public/contacts')
+        home: url('index'),
+        login: url('public/login'),
+        register: url('public/register'),
+        about: url('public/about'),
+        contacts: url('public/contacts')
     },
     admin: {
-        dashboard: url('/admin/dashboard'),
-        audit_trail: url('/admin/audit_trail'),
-        users: url('/admin/manage_users'),
-        facilities: url('/admin/facilities'),
-        classrooms: url('/admin/classrooms'),
+        dashboard: url('admin/dashboard'),
+        audit_trail: url('admin/audit_trail'),
+        backups: url('admin/backups'),
+        users: url('admin/users'),
+        sessions: url('admin/sessions'),
         instructors: url('admin/instructors'),
-        courses: url('/admin/courses')
+        academic_ranks: url('admin/academic_ranks'),
+        roles: url('admin/roles'),
+        facilities: url('admin/facilities'),
+        classrooms: url('admin/classrooms'),
+        courses: url('admin/courses'),
+        schedules: url('admin/schedules')
     },
     program_chair: {
-        dashboard: url('/program_chair/dashboard'),
-        scheduler: url('/program_chair/scheduler'),
+        dashboard: url('program_chair/dashboard'),
+        scheduler: url('program_chair/scheduler'),
     },
     authenticated: {
+        notifications: url('authenticated/notifications'),
         account: url('authenticated/account'),
         settings: url('authenticated/settings'),
     }

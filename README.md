@@ -8,3 +8,4 @@
 - dotenv 17.3.1
 - vitest 4.1.5
 - playwright 1.59.1
+- dayjs 1.11.20
