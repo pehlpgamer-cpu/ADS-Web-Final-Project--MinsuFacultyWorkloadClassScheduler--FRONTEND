@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link type="text/css" rel="stylesheet" href="../../style.css"/>
+    <link rel="icon" type="image/svg+xml" href="../../assets/calendar-clock-svgrepo-com.svg" />
+    <title>minsu-class-scheduler-system</title>
+</head>
+<body class="bg-white flex justify-center items-center h-screen"> 
+    
+    
+    <form id="loginForm" class="border-2 bg-gray-200 flex flex-col gap-1.5 p-4 rounded-xl">
+        
+    </form>
+</body>
+</html>
+
+
+<script lang="js" type="module">
+import { z } from "zod"; // https://zod.dev/basics
+
+
+
+
+let isPasswordInputVisible = false;
+
+const togglePasswordVisibility = () => {
+    if (isPasswordInputVisible) {
+        viewPasswordInputBtn.innerHTML = `<i class="bi bi-eye-slash"></i>`
+        password_input.setAttribute("type", "password")
+    }
+    else {
+        viewPasswordInputBtn.innerHTML = `<i class="bi bi-eye"></i>`
+        password_input.setAttribute("type", "text")
+    } 
+    isPasswordInputVisible = !isPasswordInputVisible
+}
+
+
+
+const userSchema = z.object({
+    email: z.string().email(),
+    
+});
+
+const submitForm = (event) => {
+    event.preventDefault();
+    const result = userSchema.safeParse({
+        email: email_input.value,
+        password: password_input.value
+    });
+    
+
+    
+    if (!result.success) {
+
+        console.log(result.error.format());
+    } 
+    else {
+        console.log(result.data);
+        // send data to API
+        
+    }
+}
+
+
+viewPasswordInputBtn.addEventListener('click', togglePasswordVisibility)
+loginForm.addEventListener('submit', submitForm)
+
+</script>
+
+<style>
+@import "../../style.css";
+
+
+</style>
+
+
+
+
