@@ -7,3 +7,4 @@
 - zod 4.3.6
 - dotenv 17.3.1
 - vitest 4.1.5
+- playwright 1.59.1
