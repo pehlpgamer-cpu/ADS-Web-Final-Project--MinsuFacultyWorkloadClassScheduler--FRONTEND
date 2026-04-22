@@ -1,5 +1,5 @@
 
-import { baseUrl } from "../js/configs.js"
+
 const basePageUrl = window.location.origin + '/src/pages' 
 
 const url = (link) => {
@@ -15,10 +15,9 @@ export const routes = {
         home: url('/index'),
         login: url('/public/login'),
         register: url('/public/register'),
-        about: '',
-        contacts: ''
+        about: url('/public/about'),
+        contacts: url('/public/contacts')
     },
-    
     admin: {
         dashboard: url('/admin/dashboard'),
         audit_trail: url('/admin/audit_trail'),
@@ -39,11 +38,6 @@ export const routes = {
 }
 
 
-// ------- ROUTE COLLECTIONS --------------------------------------------------------------------------------------------------------------------
-
-export const routeCollections = {
-    // ????
-} 
 
 
 

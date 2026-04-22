@@ -5,7 +5,7 @@ export const topBarNav = (htmlRouteLinks) => {
     const topBarNav = 
     `
         <nav class="flex flex-row gap-1.5 p-2 w-screen bg-green-800 ">
-            <a href="${routes.public.home}" class="hover:scale-108 duration-100 ease-in-out">
+            <a href="${routes.public.home}" class="hover:scale-112 duration-600 ease-in-out">
                 <img alt=logo src='${baseUrl.frontend}/src/assets/calendar-clock-svgrepo-com.svg' class="size-10"/>
             </a>
 

@@ -55,6 +55,41 @@
     
 } */
 
+
+/* ----- PUBLIC ------------------------------------------------------------ */
+
+.publicBody {
+    @apply bg-white flex flex-col items-center h-screen;
+}
+
+.publicHeader {
+    @apply w-screen;
+}
+
+.publicMain {
+    @apply flex items-center justify-center w-screen grow
+}
+
+.publicFooter {
+
+}
+
+
+/* ----- AUTHENTICATED ------------------------------------------------------------ */
+
+.authenticatedBody {
+    @apply bg-white flex items-center min-h-screen h-fit w-screen;
+}
+
+.authenticatedAside {
+    @apply h-screen w-13 md:w-45 self-start;
+}
+
+.authenticatedMain {
+    @apply flex flex-col w-screen grow;
+}
+
+
 @keyframes fadeIn {
     from {
         opacity: 0;

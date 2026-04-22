@@ -7,10 +7,10 @@
     <title>minsu-class-scheduler-system</title>
     <link type="text/css" rel="stylesheet" href="../../style.css"/>
 </head>
-<body class="bg-white flex flex-col items-center h-screen"> 
-    <header id="header" class="w-screen"></header>
+<body class="publicBody"> 
+    <header id="header" class="publicHeader"></header>
     
-    <main class="flex items-center justify-center w-screen grow">
+    <main class="publicMain">
     
         <form id="registerForm" class="border-2 bg-gray-200 flex flex-col gap-1.5 p-4 rounded-xl">
             <div class="">
@@ -56,7 +56,7 @@
                 </label>
             </div>
     
-            <button type="submit" class="bg-[var(--color-primary)] hover:scale-110  hover:rounded-2xl duration-150 cursor-pointer rounded-md font-bold pt-2 pb-2 mt-6">
+            <button type="submit" class="bg-(--color-primary) hover:scale-110  hover:rounded-2xl duration-150 cursor-pointer rounded-md font-bold pt-2 pb-2 mt-6">
                 Register
             </button>
             <a href="./login.html" class="text-sm flex justify-center underline hover:scale-110 duration-150 cursor-pointer">
@@ -75,6 +75,9 @@ import { z } from "zod"; // https://zod.dev/basics
 import { routes, addLink } from '../../js/routes.js'
 import { topBarNav } from '../../js/components/topBarNav.js'
 import { navButton } from '../../js/components/navButton.js'
+import { publicNavButtons } from '../../js/components/navButtonCollections.js'
+
+// HTMLs
 
 const registerForm = document.getElementById('registerForm')
 const email_input = document.getElementById('email_input')
@@ -88,10 +91,12 @@ const confirm_password_input = document.getElementById('confirm_password_input')
 const confirm_password_input_error = document.getElementById('confirm_password_input_error')
 const viewConfirmPasswordInputBtn = document.getElementById('viewConfirmPasswordInputBtn')
 
+// STATES
 
 let isPasswordInputVisible = false;
 let isConfirmPasswordInputVisible = false;
 
+// LOGICS
 
 const togglePasswordVisibility = () => {
     if (isPasswordInputVisible) {
@@ -147,12 +152,13 @@ const submitForm = (event) => {
     }
 }
 
+
+// LINKS/ROUTES
+
 const header = document.getElementById('header');
-const links = 
-    navButton('bi bi-house', 'home', routes.public.home) +
-    navButton('bi bi-box-arrow-in-left', 'login', routes.public.login) + 
-    navButton('bi bi-vector-pen', 'register', routes.public.register)
-header.innerHTML = topBarNav(links);
+header.innerHTML = topBarNav(publicNavButtons);
+
+// EVENT LISTERS
 
 viewPasswordInputBtn.addEventListener('click', togglePasswordVisibility)
 viewConfirmPasswordInputBtn.addEventListener('click', toggleConfirmPasswordVisibility)

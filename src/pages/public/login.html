@@ -7,10 +7,10 @@
     <link rel="icon" type="image/svg+xml" href="../../assets/calendar-clock-svgrepo-com.svg" />
     <title>minsu-class-scheduler-system</title>
 </head>
-<body class="bg-white flex flex-col items-center h-screen"> 
-    <header id="header" class="w-screen"></header>
+<body class="publicBody"> 
+    <header id="header" class="publicHeader"></header>
     
-    <main class="flex items-center justify-center w-screen grow">
+    <main class="publicMain">
         <form id="loginForm" class=" bg-gray-200 flex flex-col gap-1.5 p-4 rounded-xl h-fit"> <!-- class="opacity-0 animate-[fadeIn_0.5s_ease-out_forwards]" -->
             <!-- EMAIL -->
             <section class="flex flex-col">
@@ -43,7 +43,7 @@
     
             <!-- BTN & LINK -->
             <section class="flex flex-col">
-                <button type="submit" class="bg-[var(--color-primary)] hover:scale-110  hover:rounded-2xl duration-150 cursor-pointer rounded-md font-bold pt-2 pb-2 mt-6">
+                <button type="submit" class="bg-(--color-primary) hover:scale-110  hover:rounded-2xl duration-150 cursor-pointer rounded-md font-bold pt-2 pb-2 mt-6">
                     Login
                 </button>
                 <a id="createAnAccountBtn" class="text-sm flex justify-center underline hover:scale-110 duration-150 cursor-pointer">
@@ -61,9 +61,11 @@ import { z } from "zod"; // https://zod.dev/basics
 import { login } from '../../js/api/auth.js'
 import { routes, addLink } from '../../js/routes.js'
 import { topBarNav } from '../../js/components/topBarNav.js'
-import { navButton } from '../../js/components/navButton.js'
+import { publicNavButtons } from '../../js/components/navButtonCollections.js'
 
+// HTMLs
 
+const header = document.getElementById('header');
 
 const loginForm = document.getElementById('loginForm')
 const viewPasswordInputBtn = document.getElementById('viewPasswordInputBtn')
@@ -71,14 +73,14 @@ const email_input = document.getElementById('email_input')
 const email_input_error = document.getElementById('email_input_error')
 const password_input = document.getElementById('password_input')
 const password_input_error = document.getElementById('password_input_error')
-
 const createAnAccountBtn = document.getElementById('createAnAccountBtn')
 
-addLink(createAnAccountBtn, routes.public.register)
-
+// STATES
 
 
 let isPasswordInputVisible = false;
+
+// LOGICS
 
 const togglePasswordVisibility = () => {
     if (isPasswordInputVisible) {
@@ -120,17 +122,19 @@ const submitForm = (event) => {
     }
 }
 
-const header = document.getElementById('header');
-const links = 
-  navButton('bi bi-house', 'home', routes.public.home) +
-  navButton('bi bi-box-arrow-in-left', 'login', routes.public.login) + 
-  navButton('bi bi-vector-pen', 'register', routes.public.register)
-header.innerHTML = topBarNav(links);
+// LINKS/ROUTES
+
+addLink(createAnAccountBtn, routes.public.register)
+header.innerHTML = topBarNav(publicNavButtons);
+
+
+// EVENT LISTERS
 
 viewPasswordInputBtn.addEventListener('click', togglePasswordVisibility)
 loginForm.addEventListener('submit', submitForm)
 
 </script>
+
 
 <style>
 @import "../../style.css";
