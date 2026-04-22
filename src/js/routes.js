@@ -1,3 +1,4 @@
+
 import { baseUrl } from "../js/configs.js"
 const basePageUrl = baseUrl.frontend + '/src/pages' 
 
@@ -11,13 +12,33 @@ export const addLink = (htmlELement, route) => {
 
 export const routes = {
     public: {
-        login: url('/auth/login'),
-        register: url('/auth/register'),
+        home: url('/index.html'),
+        login: url('/public/login'),
+        register: url('/public/register'),
     },
     
     admin: {
-        manage_users: url('/admin/manage_users')
+        admin_dashboard: url('/admin/admin_dashboard'),
+        manage_users: url('/admin/manage_users'),
+        manage_facilities: url('/admin/manage_facilities'),
+        manage_classrooms: url('/admin/manage_classrooms'),
+        manage_instructors: url('admin/manage_instructors'),
+        manage_courses: url('/admin/manage_courses')
     },
+    program_chair: {
+        program_chair_dashboard: url('/program_chair/program_chair_dashboard'),
+        scheduler: url('program_chair/scheduler'),
+    },
+    authenticated: {
+        account: url('authenticated/account'),
+        settings: url('authenticated/settings'),
+    }
 }
+
+
+// ------- ROUTE COLLECTIONS --------------------------------------------------------------------------------------------------------------------
+
+
+
 
 

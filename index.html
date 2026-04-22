@@ -8,18 +8,22 @@
     <link rel="stylesheet" href="./src/style.css"/>
   </head>
   <body class="test"> 
-    <i class="bi bi-house"></i>
-    <label>HOME</label>
-    <a href="./src/pages/auth/login.html" class="hover:scale-115 hover:border hover:rounded-2xl duration-150 p-4">login page</a>
+    
+    <a id="loginPageBtn" class="hover:scale-115 hover:border hover:rounded-2xl duration-150 p-4">login page</a>
   </body>
 </html>
 
+<script type="module">
+  import {routes, addLink} from './src/js/routes.js'
+  import { top}
 
+  const loginPageBtn = document.getElementById('loginPageBtn');
+
+  addLink(loginPageBtn, routes.public.login);
+
+</script>
 
 <style>
   @import "./src/style.css";
   
-  .test {
-    @apply bg-yellow-400 text-6xl;
-  }
 </style>
