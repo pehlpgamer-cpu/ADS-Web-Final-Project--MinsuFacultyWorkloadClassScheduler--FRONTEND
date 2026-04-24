@@ -6,7 +6,7 @@ export const navButton = (iconStyle, label, link, addStyle = '', highlighted = f
     
 
     if (link === currentDir) style = "text-white bg-black font-bold"
-    else style = "bg-green-900"
+    else style = "bg-green-700"
 
     const navButton = 
     `

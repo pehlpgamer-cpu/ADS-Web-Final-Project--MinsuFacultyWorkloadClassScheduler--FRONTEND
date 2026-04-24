@@ -2,7 +2,7 @@ export const sideBarNav = (header, htmlRouteLinks, footer) =>
 {
     const sideBarNav = 
     `
-        <aside class="w-12 md:w-38 h-screen fixed justify-center md:flex p-2 bg-green-800">
+        <aside class="w-12 md:w-38 h-screen justify-center md:flex bg-green-800">
             <header>
                 ${header}
             </header>
