@@ -19,18 +19,19 @@ export const routes = {
         contacts: url('public/contacts')
     },
     admin: {
-        dashboard: url('admin/dashboard'),
         audit_trail: url('admin/audit_trail'),
-        backups: url('admin/backups'),
-        users: url('admin/users'),
-        sessions: url('admin/sessions'),
-        instructors: url('admin/instructors'),
         academic_ranks: url('admin/academic_ranks'),
-        roles: url('admin/roles'),
-        facilities: url('admin/facilities'),
+        backups: url('admin/backups'),
         classrooms: url('admin/classrooms'),
         courses: url('admin/courses'),
-        schedules: url('admin/schedules')
+        dashboard: url('admin/dashboard'),
+        facilities: url('admin/facilities'),
+        instructors: url('admin/instructors'),
+        roles: url('admin/roles'),
+        sessions: url('admin/sessions'),
+        users: url('admin/users'),
+
+        schedules: url('admin/schedules'), // ???
     },
     program_chair: {
         dashboard: url('program_chair/dashboard'),

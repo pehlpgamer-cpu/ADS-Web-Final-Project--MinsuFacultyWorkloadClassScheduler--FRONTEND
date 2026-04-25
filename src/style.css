@@ -78,16 +78,19 @@
 /* ----- AUTHENTICATED ------------------------------------------------------------ */
 
 .authenticatedBody {
-    @apply bg-white flex items-center min-h-screen h-fit w-screen;
+    @apply bg-white flex h-screen overflow-hidden;
 }
 
 .authenticatedAside {
-    @apply h-screen w-13 md:w-45 self-start;
+    @apply w-48 p-2 sticky top-0 h-screen overflow-y-auto border-r bg-green-600;
 }
 
+
 .authenticatedMain {
-    @apply flex flex-col w-screen grow;
+    @apply flex-1 overflow-y-auto overflow-x-hidden;
 }
+
+/* ----- ANIMATIONS ------------------------------------------------------------ */
 
 
 @keyframes fadeIn {

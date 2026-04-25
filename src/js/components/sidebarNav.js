@@ -2,17 +2,22 @@ export const sideBarNav = (header, htmlRouteLinks, footer) =>
 {
     const sideBarNav = 
     `
-        <aside class="w-12 md:w-38 h-screen justify-center md:flex bg-green-800">
-            <header>
+        <aside class="flex flex-col h-full">
+            <header class="">
                 ${header}
             </header>
             
-            <main class="grow flex flex-col gap-1.5">
+            <main class="flex flex-col gap-1.5">
                 ${htmlRouteLinks}
             </main>
-            
-            <footer>
+
+            <div class="grow"></div>
+            <footer class="flex flex-col">
                 ${footer}
+                <button id="logoutBtn" class="p-2 bg-green-700 rounded-md my-1">
+                    <i class="bi bi-box-arrow-left"></i>    
+                    <label>Logout</label>
+                </button>
             </footer>
         </aside>
     `
