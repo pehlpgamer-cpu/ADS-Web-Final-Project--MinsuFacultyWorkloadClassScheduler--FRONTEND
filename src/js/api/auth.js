@@ -14,7 +14,6 @@ export const login = async (input_data) => {
 }
 
 
-
 export const logout = async (session_token) => {
     return fetch(baseUrl.backend + '/v1/auth/login.php', {
         method: "POST",
@@ -27,6 +26,7 @@ export const logout = async (session_token) => {
     .then(data => data)
     .catch(error => console.error('Login error:', error));
 }
+
 
 export const register = async (input_data) => {
     return fetch(baseUrl.backend + '/v1/auth/register.php', {
