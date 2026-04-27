@@ -1,5 +1,4 @@
 import { baseUrl } from '../configs' 
-
 export const login = async (input_data) => {
     return fetch(baseUrl.backend + '/v1/auth/login.php', {
         method: "POST",
@@ -19,6 +18,7 @@ export const logout = async (session_token) => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+            "x-session-token": session_token
         },
         body: JSON.stringify(session_token)
     })

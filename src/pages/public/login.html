@@ -95,7 +95,6 @@ const togglePasswordVisibility = () => {
 }
 
 
-
 const userSchema = z.object({
     email: z.string().email(),
     password: z.string().min(8, 'minimum of 8 characters').max(64, 'maximum of 64 characters'),
@@ -111,14 +110,16 @@ const submitForm = (event) => {
 
     
     if (!result.success) {
-        email_input_error.innerText = result.error.format().email._errors
+        email_input_error.innerText = result.error.format().email._errors // error: undefined
         password_input_error.innerText = result.error.format().password._errors
+
         console.log(result.error.format());
     } 
     else {
         console.log(result.data);
         // send data to API
-        
+        let response = login(result.data);
+        console.log(response);
     }
 }
 

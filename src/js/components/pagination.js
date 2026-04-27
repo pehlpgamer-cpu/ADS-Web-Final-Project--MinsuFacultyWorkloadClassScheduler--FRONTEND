@@ -22,7 +22,7 @@ export const pagination = (
                     <i class="bi bi-arrow-right"></i>
                     <label>Next</label>
                 </button>
-            </div>
+            </div>1
 
             <!-- Pages -->
             <div>
@@ -41,7 +41,7 @@ export const pagination = (
 const pageBtn = (pageNumber, currentPage) => {
     const btn = 
     `
-    
+
     `
 
     return btn;

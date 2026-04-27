@@ -10,9 +10,50 @@
 <body class="authenticatedBody"> 
     <aside id="sideNavigationBar" class="authenticatedAside"></aside>
     
-    <main class="authenticatedMain">
-        <section>
-            
+    <main class="authenticatedMain ">
+        <section class="flex flex-col overflow-x-scroll w-[200vw]">
+            <table class="border p-2 grow min-w-max">
+            <thead>
+                <tr>
+                <th scope="col" class="tableCell">TIME</th>
+                <th scope="col" class="tableCell tableDayHeader">Sun</th>
+                <th scope="col" class="tableCell tableRoomHeader">Room</th>
+
+                <th scope="col" class="tableCell tableDayHeader">Mon</th>
+                
+                <th scope="col" class="tableCell tableRoomHeader">Room</th>
+
+                <th scope="col" class="tableCell tableDayHeader">Tue</th>
+                
+                <th scope="col" class="tableCell tableRoomHeader">Room</th>
+
+                <th scope="col" class="tableCell tableDayHeader">Wed</th>
+                
+                <th scope="col" class="tableCell tableRoomHeader">Room</th>
+
+                <th scope="col" class="tableCell tableDayHeader">Thu</th>
+                
+                <th scope="col" class="tableCell tableRoomHeader">Room</th>
+
+                <th scope="col" class="tableCell tableDayHeader">Fri</th>
+                
+                <th scope="col" class="tableCell tableRoomHeader">Room</th>
+
+                <th scope="col" class="tableCell tableDayHeader">Sat</th>
+                
+                <th scope="col" class="tableCell tableRoomHeader">Room</th>
+                </tr>
+                
+            </thead>
+            <tbody>
+                <tr>
+                    
+                </tr>
+            </tbody>
+            </table>
+        </section>
+        <section class="bg-amber-100 h-screen">
+            dfsdf
         </section>
     </main>
 </body>
@@ -41,7 +82,17 @@ sideNavigationBar.innerHTML = sideBarNav('', programChairNavButtons, '');
 <style>
 @import "../../style.css";
 
+.tableCell {
+    @apply p-1 w-24 border;
+}
+.tableDayHeader {
+    @apply bg-black w-24 text-white border-black;
+}
 
+
+.tableRoomHeader {
+    @apply bg-gray-800 w-24 text-white border-black;
+}
 
 </style>
 
