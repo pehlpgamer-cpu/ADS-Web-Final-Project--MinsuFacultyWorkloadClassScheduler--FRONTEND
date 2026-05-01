@@ -1,4 +1,4 @@
-export const safeSet = (key, value) => {
+export const safeSetLocalStorage = (key, value) => {
   try {
     localStorage.setItem(key, typeof value === 'string' ? value : JSON.stringify(value));
   } catch (e) {
@@ -10,7 +10,7 @@ export const safeSet = (key, value) => {
   }
 }
 
-export const safeGet = (key, parseJSON = false) => {
+export const safeGetLocalStorage = (key, parseJSON = false) => {
   try {
     const item = localStorage.getItem(key);
     return parseJSON && item ? JSON.parse(item) : item;

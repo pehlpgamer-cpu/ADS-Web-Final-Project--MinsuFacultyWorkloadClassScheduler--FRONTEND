@@ -6,4 +6,7 @@ export const baseUrl = {
 };
 
 
-
+export const user_role_ids = {
+    admin: 1,
+    program_chair: 2
+}

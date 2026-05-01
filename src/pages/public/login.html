@@ -62,6 +62,9 @@ import { login } from '../../js/api/auth.js'
 import { routes, addLink } from '../../js/routes.js'
 import { topBarNav } from '../../js/components/topBarNav.js'
 import { publicNavButtons } from '../../js/components/navButtonCollections.js'
+// import { authenticateAuthorize } from '../../js/utils/authenticateAuthorize.js'
+import { user_role_ids } from '../../js/configs.js'
+import { safeGetLocalStorage, safeSetLocalStorage } from '../../js/utils/localStorage.js'
 
 // HTMLs
 
@@ -100,28 +103,63 @@ const userSchema = z.object({
     password: z.string().min(8, 'minimum of 8 characters').max(64, 'maximum of 64 characters'),
 });
 
-const submitForm = (event) => {
+const submitForm = async (event) => {
     event.preventDefault();
+
     const result = userSchema.safeParse({
         email: email_input.value,
         password: password_input.value
     });
-    
 
-    
+    email_input_error.innerText = "";
+    password_input_error.innerText = "";
+
     if (!result.success) {
-        email_input_error.innerText = result.error.format().email._errors // error: undefined
-        password_input_error.innerText = result.error.format().password._errors
+        const errors = result.error.format();
 
-        console.log(result.error.format());
-    } 
-    else {
-        console.log(result.data);
-        // send data to API
-        let response = login(result.data);
-        console.log(response);
+        email_input_error.innerText = errors.email?._errors?.[0] ?? "";
+        password_input_error.innerText = errors.password?._errors?.[0] ?? "";
+
+        console.log(errors);
+        return;
     }
-}
+
+    try {
+        console.log(result.data);
+
+        // send data to API
+        const response = await login(result.data);
+
+        console.log("login response:");
+        console.log(response);
+
+        if (!response.success) {
+            console.log(response.message || "Invalid login");
+            return;
+        }
+
+        const roleId = String(response.data.role_id);
+
+        safeSetLocalStorage("user_role_id", roleId);
+
+        const session_user_role_id = safeGetLocalStorage("user_role_id");
+
+        if (session_user_role_id === String(user_role_ids.admin)) {
+            console.log("redirected to admin pages");
+            window.location.href = routes.admin.dashboard;
+        } 
+        else if (session_user_role_id === String(user_role_ids.program_chair)) {
+            console.log("redirected to program_chair pages");
+            window.location.href = routes.program_chair.dashboard;
+        } 
+        else {
+            console.log("invalid login role");
+        }
+
+    } catch (error) {
+        console.error("Login request failed:", error);
+    }
+};
 
 // LINKS/ROUTES
 
