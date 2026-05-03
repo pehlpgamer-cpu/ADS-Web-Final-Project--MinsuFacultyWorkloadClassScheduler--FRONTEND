@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" class="">
+<head>
+    <meta name="page" content="admin">
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link type="text/css" rel="stylesheet" href="../../style.css"/>
+    <link rel="icon" type="image/svg+xml" href="../../assets/calendar-clock-svgrepo-com.svg" />
+    <title>minsu-class-scheduler-system</title>
+</head>
+
+<body class="authenticatedBody"> 
+    <aside id="sideNavigationBar" class="authenticatedAside"></aside>
+    
+    <main class="authenticatedMain">
+        <div class="bg-red-200 grow h-screen">fgdsgh</div>
+        <div class="bg-orange-200 grow h-screen">fhdgfh</div>
+        <div class="bg-yellow-200 grow h-screen">fhdgfh</div>
+        <div class="bg-blue-200 grow h-screen">fhdgfh</div>
+    </main>
+</body>
+</html>
+
+<style>
+@import "../../style.css";
+
+
+</style>
+
+<script lang="js" type="module">
+import { routes, addLink } from '../../js/routes.js'
+import { authenticateAuthorize } from '../../js/utils/authenticateAuthorize.js'
+import { logout } from '../../js/api/auth.js'
+import { sideBarNav } from '../../js/components/sideBarNav.js'
+import { adminNavButtons } from '../../js/components/navButtonCollections.js'
+import { safeGetLocalStorage, safeSetLocalStorage } from '../../js/utils/localStorage.js'
+
+import { handleLogout } from '../../js/utils/handleLogout.js'
+
+const sideNavigationBar = document.getElementById('sideNavigationBar');
+sideNavigationBar.innerHTML = sideBarNav('', adminNavButtons, '');
+
+
+window.document.getElementById('logoutBtn').addEventListener('click', handleLogout)
+authenticateAuthorize()
+
+
+// 1. imports
+// 2. const htmlElement = document.getDocumentById('htmlElement') 
+// 3. constants
+// 4. states
+// 5. logics
+// 6. routes
+// 7. eventListers
+
+// -----============----- -<( GLOBAL??? )>- -----=================================================================----- //
+
+
+
+</script>

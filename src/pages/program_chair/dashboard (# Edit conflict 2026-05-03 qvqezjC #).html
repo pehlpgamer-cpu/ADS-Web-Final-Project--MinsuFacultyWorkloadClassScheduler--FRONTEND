@@ -30,19 +30,27 @@ import { navButton } from '../../js/components/navButton.js'
 import { sideBarNav } from '../../js/components/sideBarNav.js'
 import { programChairNavButtons } from '../../js/components/navButtonCollections.js'
 import { authenticateAuthorize } from '../../js/utils/authenticateAuthorize.js'
+import { logout } from '../../js/api/auth.js'
 import { safeGetLocalStorage, safeSetLocalStorage } from '../../js/utils/localStorage.js'
 
-import { handleLogout } from '../../js/utils/handleLogout.js'
 
 
 const sideNavigationBar = document.getElementById('sideNavigationBar');
 sideNavigationBar.innerHTML = sideBarNav('', programChairNavButtons, '');
 
 
-
+const handleLogout = async () => {
+    const response = await logout();
+    safeSetLocalStorage('session_token', null)
+    console.log('x-session-token: ' + safeGetLocalStorage('session_token'))
+}
 
 window.document.getElementById('logoutBtn').addEventListener('click', handleLogout)
 authenticateAuthorize()
+
+// -----============----- -<( GLOBAL??? )>- -----=================================================================----- //
+
+
 
 </script>
 

@@ -23,13 +23,13 @@
 </style>
 
 <script lang="js" type="module">
-1. imports
-2. const htmlElement = document.getDocumentById('htmlElement') 
-3. constants
-4. states
-5. logics
-6. routes
-7. eventListers
+// 1. imports
+// 2. const htmlElement = document.getDocumentById('htmlElement') 
+// 3. constants
+// 4. states
+// 5. logics
+// 6. routes
+// 7. eventListers
 </script>
 
 ```

@@ -20,7 +20,6 @@ export const routes = {
     },
     admin: {
         audit_trail: url('admin/audit_trail'),
-        academic_ranks: url('admin/academic_ranks'),
         backups: url('admin/backups'),
         classrooms: url('admin/classrooms'),
         courses: url('admin/courses'),

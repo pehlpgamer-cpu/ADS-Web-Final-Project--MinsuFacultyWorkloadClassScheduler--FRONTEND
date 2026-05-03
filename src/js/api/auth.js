@@ -23,10 +23,7 @@ export const logout = async () => {
         headers: {
             "Content-Type": "application/json",
             "x-session-token": session_token ?? ""
-        },
-        body: JSON.stringify({
-            session_token: session_token
-        })
+        }
     });
 
     return await res.json();

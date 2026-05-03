@@ -15,7 +15,6 @@ export const adminNavButtons =
     navButton('bi bi-fingerprint', 'Sessions', routes.admin.sessions) +
     navButton('bi bi-person-vcard-fill', 'Roles', routes.admin.roles) +
     navButton('bi bi-mortarboard-fill', 'Instructors', routes.admin) +
-    navButton('bi bi-person-badge-fill', 'Academic ranks', routes.admin) +
     navButton('bi bi-buildings-fill', 'Facilities', routes.admin.facilities) +
     navButton('bi bi-door-open-fill', 'Classrooms', routes.admin.classrooms) +
     navButton('bi bi-bell-fill', 'Notifications', routes.authenticated.notifications) +

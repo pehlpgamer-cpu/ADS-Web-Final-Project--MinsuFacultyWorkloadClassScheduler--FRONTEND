@@ -139,10 +139,13 @@ const submitForm = async (event) => {
         }
 
         const roleId = String(response.data.role_id);
+        const sessionToken = String(response.data.session_token);
 
+        safeSetLocalStorage("session_token", sessionToken);
         safeSetLocalStorage("user_role_id", roleId);
 
         const session_user_role_id = safeGetLocalStorage("user_role_id");
+        
 
         if (session_user_role_id === String(user_role_ids.admin)) {
             console.log("redirected to admin pages");
@@ -160,6 +163,14 @@ const submitForm = async (event) => {
         console.error("Login request failed:", error);
     }
 };
+
+const session_user_role_id = safeGetLocalStorage('user_role_id')
+const session_token = safeGetLocalStorage('session_token')
+const page = document.querySelector('meta[name="page"]')?.content;
+
+console.log("page: " + page)
+console.log("role: " + session_user_role_id)
+console.log("session token: " + session_token)
 
 // LINKS/ROUTES
 
