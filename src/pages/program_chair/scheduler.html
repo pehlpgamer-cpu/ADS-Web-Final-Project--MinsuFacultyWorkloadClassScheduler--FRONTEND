@@ -1,99 +1,239 @@
 <!doctype html>
 <html lang="en" class="">
 <head>
+    <meta name="page" content="program_chair">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link type="text/css" rel="stylesheet" href="../../style.css"/>
     <link rel="icon" type="image/svg+xml" href="../../assets/calendar-clock-svgrepo-com.svg" />
-    <title>Admin dashboard</title>
+    <title>Program Chair - Scheduler</title>
 </head>
 <body class="authenticatedBody"> 
     <aside id="sideNavigationBar" class="authenticatedAside"></aside>
     
-    <main class="authenticatedMain ">
-        <section class="flex flex-col overflow-x-scroll w-[200vw]">
-            <table class="border p-2 grow min-w-max">
-            <thead>
-                <tr>
-                <th scope="col" class="tableCell">TIME</th>
-                <th scope="col" class="tableCell tableDayHeader">Sun</th>
-                <th scope="col" class="tableCell tableRoomHeader">Room</th>
+    <main class="authenticatedMain flex flex-col">
+        <!-- Collection Selector & Export Button -->
+        <div id="collectionSelectorContainer"></div>
 
-                <th scope="col" class="tableCell tableDayHeader">Mon</th>
-                
-                <th scope="col" class="tableCell tableRoomHeader">Room</th>
+        <!-- Schedule Grid -->
+        <div id="scheduleGridContainer" class="flex-1 overflow-auto p-4 bg-gray-50">
+            <div class="text-center text-gray-500">Loading schedules...</div>
+        </div>
 
-                <th scope="col" class="tableCell tableDayHeader">Tue</th>
-                
-                <th scope="col" class="tableCell tableRoomHeader">Room</th>
-
-                <th scope="col" class="tableCell tableDayHeader">Wed</th>
-                
-                <th scope="col" class="tableCell tableRoomHeader">Room</th>
-
-                <th scope="col" class="tableCell tableDayHeader">Thu</th>
-                
-                <th scope="col" class="tableCell tableRoomHeader">Room</th>
-
-                <th scope="col" class="tableCell tableDayHeader">Fri</th>
-                
-                <th scope="col" class="tableCell tableRoomHeader">Room</th>
-
-                <th scope="col" class="tableCell tableDayHeader">Sat</th>
-                
-                <th scope="col" class="tableCell tableRoomHeader">Room</th>
-                </tr>
-                
-            </thead>
-            <tbody>
-                <tr>
-                    
-                </tr>
-            </tbody>
-            </table>
-        </section>
-        <section class="bg-amber-100 h-screen">
-            dfsdf
-        </section>
+        <!-- Edit Modal -->
+        <div id="editModalContainer"></div>
     </main>
 </body>
 </html>
 
-
 <script lang="js" type="module">
-import { z } from "zod"; // https://zod.dev/basics
-// import {  } from '../../js/api/auth.js'
-import { routes, addLink } from '../../js/routes.js'
-import { navButton } from '../../js/components/navButton.js'
-import { sideBarNav } from '../../js/components/sideBarNav.js'
-import { programChairNavButtons } from '../../js/components/navButtonCollections.js'
+import Swal from 'sweetalert2';
+import { authenticateAuthorize } from '../../js/utils/authenticateAuthorize.js';
+import { sideBarNav } from '../../js/components/sideBarNav.js';
+import { programChairNavButtons } from '../../js/components/navButtonCollections.js';
+import { collectionSelector } from '../../js/components/collectionSelector.js';
+import { scheduleGrid } from '../../js/components/scheduleGrid.js';
+import { 
+  scheduleEditModal, 
+  showScheduleEditModal, 
+  hideScheduleEditModal, 
+  getScheduleEditFormData 
+} from '../../js/components/scheduleEditModal.js';
+import { getScheduleCollections, getSchedules, updateSchedule } from '../../js/api/schedules.js';
+import { exportSchedulesToExcel } from '../../js/utils/scheduleExport.js';
 
+// ============================================================================
+// Global Schedule Card Click Handler
+// ============================================================================
+window.scheduleCardClick = (element) => {
+  const schedule = {
+    schedule_id: element.dataset.scheduleId,
+    start_time: element.dataset.startTime,
+    end_time: element.dataset.endTime,
+    day: element.dataset.day,
+    course_code: element.dataset.courseCode,
+    title: element.dataset.title,
+    instructor_name: element.dataset.instructor,
+    classroom_name: element.dataset.classroom,
+  };
+  showScheduleEditModal(schedule);
+};
 
+// ============================================================================
+// State
+// ============================================================================
+let collections = [];
+let currentCollectionId = null;
+let currentSchedules = [];
 
+// ============================================================================
+// Init
+// ============================================================================
+async function init() {
+  try {
+    // Auth check
+    await authenticateAuthorize();
 
-const sideNavigationBar = document.getElementById('sideNavigationBar');
+    // Render sidebar
+    const sideNavigationBar = document.getElementById('sideNavigationBar');
+    sideNavigationBar.innerHTML = sideBarNav('', programChairNavButtons, '');
 
-sideNavigationBar.innerHTML = sideBarNav('', programChairNavButtons, '');
+    // Load collections
+    collections = await getScheduleCollections();
+    if (collections.length === 0) {
+      document.getElementById('scheduleGridContainer').innerHTML = 
+        '<div class="p-4 text-center text-gray-500">No schedule collections found.</div>';
+      return;
+    }
 
+    // Set first collection as default
+    currentCollectionId = collections[0].schedule_collection_id;
 
+    // Render selector + modal
+    document.getElementById('collectionSelectorContainer').innerHTML = 
+      collectionSelector(collections);
+    document.getElementById('editModalContainer').innerHTML = scheduleEditModal();
 
+    // Load and render schedules
+    await loadAndRenderSchedules();
+
+    // Attach event listeners
+    attachEventListeners();
+  } catch (err) {
+    console.error('Init error:', err);
+    Swal.fire('Error', 'Failed to load scheduler: ' + (err.message || 'Unknown error'), 'error');
+  }
+}
+
+// ============================================================================
+// Load and Render Schedules
+// ============================================================================
+async function loadAndRenderSchedules() {
+  try {
+    document.getElementById('scheduleGridContainer').innerHTML = 
+      '<div class="text-center py-8 text-gray-500">Loading schedules...</div>';
+
+    currentSchedules = await getSchedules(currentCollectionId);
+    
+    const gridHtml = scheduleGrid(currentSchedules);
+    document.getElementById('scheduleGridContainer').innerHTML = gridHtml;
+
+    // Re-attach card click listeners (they're rendered fresh)
+    attachScheduleCardListeners();
+  } catch (err) {
+    console.error('Load error:', err);
+    Swal.fire('Error', 'Failed to load schedules: ' + (err.message || 'Unknown error'), 'error');
+  }
+}
+
+// ============================================================================
+// Event Listeners
+// ============================================================================
+function attachEventListeners() {
+  // Collection dropdown change
+  const dropdown = document.getElementById('scheduleCollectionDropdown');
+  if (dropdown) {
+    dropdown.addEventListener('change', (e) => {
+      currentCollectionId = e.target.value;
+      loadAndRenderSchedules();
+    });
+  }
+
+  // Export button
+  const exportBtn = document.getElementById('exportScheduleBtn');
+  if (exportBtn) {
+    exportBtn.addEventListener('click', handleExport);
+  }
+
+  // Edit modal form submit
+  const form = document.getElementById('scheduleEditForm');
+  if (form) {
+    form.addEventListener('submit', handleEditSubmit);
+  }
+
+  // Edit modal cancel
+  const cancelBtn = document.getElementById('scheduleEditCancel');
+  if (cancelBtn) {
+    cancelBtn.addEventListener('click', hideScheduleEditModal);
+  }
+
+  // Attach listeners to schedule cards
+  attachScheduleCardListeners();
+}
+
+function attachScheduleCardListeners() {
+  // Card click handlers are now global (scheduleCardClick function above)
+  // Re-rendered each time grid loads
+}
+
+// ============================================================================
+// Export
+// ============================================================================
+function handleExport() {
+  try {
+    if (!currentSchedules || currentSchedules.length === 0) {
+      Swal.fire('Info', 'No schedules to export', 'info');
+      return;
+    }
+
+    const collectionTitle = collections.find(
+      (c) => c.schedule_collection_id === currentCollectionId
+    )?.title || 'Schedule';
+
+    exportSchedulesToExcel(currentSchedules, collectionTitle);
+    Swal.fire('Success', 'Schedule exported to Excel', 'success');
+  } catch (err) {
+    console.error('Export error:', err);
+    Swal.fire('Error', 'Export failed: ' + (err.message || 'Unknown error'), 'error');
+  }
+}
+
+// ============================================================================
+// Edit Modal Submit
+// ============================================================================
+async function handleEditSubmit(e) {
+  e.preventDefault();
+
+  try {
+    const formData = getScheduleEditFormData();
+    
+    // Validate
+    if (!formData.schedule_id || !formData.day || !formData.start_time || !formData.end_time) {
+      Swal.fire('Error', 'All fields are required', 'error');
+      return;
+    }
+
+    if (formData.start_time >= formData.end_time) {
+      Swal.fire('Error', 'Start time must be before end time', 'error');
+      return;
+    }
+
+    // Send update
+    await updateSchedule(formData.schedule_id, {
+      day: formData.day,
+      start_time: formData.start_time,
+      end_time: formData.end_time,
+    });
+
+    hideScheduleEditModal();
+    Swal.fire('Success', 'Schedule updated', 'success');
+
+    // Reload grid
+    await loadAndRenderSchedules();
+  } catch (err) {
+    console.error('Update error:', err);
+    Swal.fire('Error', 'Update failed: ' + (err.message || 'Unknown error'), 'error');
+  }
+}
+
+// ============================================================================
+// Start
+// ============================================================================
+init();
 </script>
 
 <style>
 @import "../../style.css";
-
-.tableCell {
-    @apply p-1 w-24 border;
-}
-.tableDayHeader {
-    @apply bg-black w-24 text-white border-black;
-}
-
-
-.tableRoomHeader {
-    @apply bg-gray-800 w-24 text-white border-black;
-}
-
 </style>
 
 
