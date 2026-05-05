@@ -16,7 +16,7 @@
         <div id="collectionSelectorContainer"></div>
 
         <!-- Schedule Grid -->
-        <div id="scheduleGridContainer" class="flex-1 overflow-auto p-4 bg-gray-50">
+        <div id="scheduleGridContainer" class="flex-1 overflow-auto p-4 bg-white">
             <div class="text-center text-gray-500">Loading schedules...</div>
         </div>
 
@@ -115,7 +115,11 @@ async function loadAndRenderSchedules() {
 
     currentSchedules = await getSchedules(currentCollectionId);
     
-    const gridHtml = scheduleGrid(currentSchedules);
+    const collectionTitle = collections.find(
+      (c) => String(c.schedule_collection_id) === String(currentCollectionId)
+    )?.title || 'Schedule';
+
+    const gridHtml = scheduleGrid(currentSchedules, collectionTitle);
     document.getElementById('scheduleGridContainer').innerHTML = gridHtml;
 
     // Re-attach card click listeners (they're rendered fresh)

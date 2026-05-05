@@ -1,44 +1,183 @@
 <!doctype html>
-<html lang="en" class="">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="./src/assets/calendar-clock-svgrepo-com.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>minsu-class-scheduler-system</title>
-    <link rel="stylesheet" href="./src/style.css"/>
-  </head>
-  <body class="bg-white flex flex-col items-center h-screen"> 
-    <header id="header" class="w-screen">
+    <title>MINSU Faculty Workload & Scheduler</title>
 
-    </header>
-    <main class="w-screen grow flex flex-col">
-      <h1 class="text-6xl self-center p-10">MINSU bongabong campus<br>Faculty workload & scheduler</h1>
+    <link rel="stylesheet" href="./src/style.css" />
+
+    <!-- Use this only if Bootstrap Icons are not yet imported in your project -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"> -->
+  </head>
+
+  <body class="min-h-screen bg-white text-slate-900 flex flex-col">
+    <header id="header" class="w-full z-50"></header>
+
+    <main class="w-full flex-1">
+      <!-- Hero Section -->
+      <section
+        class="relative min-h-[560px] flex items-center justify-center bg-cover bg-center"
+        style="background-image: url('./src/assets/landing/classroom-hero.jpg');"
+      >
+        <div class="absolute inset-0 bg-black/65"></div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-6 text-center text-white">
+          <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight drop-shadow-lg">
+            Faculty Workload &<br />
+            Scheduler
+          </h1>
+
+          <p class="mt-8 text-base sm:text-lg md:text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
+            Streamline class scheduling, manage faculty workloads, and optimize
+            academic planning for MINSU Bongabong Campus
+          </p>
+
+          <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              id="getStartedBtn"
+              href="#"
+              class="inline-flex items-center justify-center gap-2 rounded-lg bg-slate-950 px-7 py-3 text-sm font-semibold text-white shadow-lg hover:bg-slate-800 transition"
+            >
+              Get Started
+              <i class="bi bi-calendar-event"></i>
+            </a>
+
+            <a
+              href="#features"
+              class="inline-flex items-center justify-center rounded-lg border border-white/40 bg-white/10 px-7 py-3 text-sm font-semibold text-white backdrop-blur-sm hover:bg-white/20 transition"
+            >
+              Learn More
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features Section -->
+      <section id="features" class="bg-white py-20 px-6">
+        <div class="max-w-7xl mx-auto">
+          <h2 class="text-3xl sm:text-4xl font-bold text-center mb-14">
+            Key Features
+          </h2>
+
+          <div id="featuresGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"></div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="bg-[#020211] py-24 px-6 text-center text-white">
+        <h2 class="text-2xl sm:text-4xl font-bold">
+          Ready to optimize your academic scheduling?
+        </h2>
+
+        <p class="mt-6 text-gray-300 text-base sm:text-lg">
+          Join MINSU Bongabong Campus in streamlining faculty workload management
+        </p>
+
+        <a
+          id="ctaBtn"
+          href="#"
+          class="mt-10 inline-flex items-center justify-center gap-2 rounded-lg bg-white px-7 py-3 text-sm font-semibold text-slate-950 shadow-lg hover:bg-gray-200 transition"
+        >
+          Get Started Today
+          <i class="bi bi-calendar-event"></i>
+        </a>
+      </section>
     </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-50 border-t border-slate-200 py-10 text-center">
+      <p class="text-sm text-slate-500">
+        © 2026 MINSU Bongabong Campus. All rights reserved.
+      </p>
+    </footer>
+
+    <script type="module">
+      import { routes, addLink } from './src/js/routes.js'
+      import { topBarNav } from './src/js/components/topBarNav.js'
+      import { navButton } from './src/js/components/navButton.js'
+
+      const header = document.getElementById('header')
+      const featuresGrid = document.getElementById('featuresGrid')
+      const getStartedBtn = document.getElementById('getStartedBtn')
+      const ctaBtn = document.getElementById('ctaBtn')
+
+      const links =
+        navButton('bi bi-house', 'home', routes.public.home) +
+        navButton('bi bi-box-arrow-in-left', 'login', routes.public.login) +
+        navButton('bi bi-vector-pen', 'register', routes.public.register)
+
+      header.innerHTML = topBarNav(links)
+
+      getStartedBtn.href = routes.public.login
+      ctaBtn.href = routes.public.login
+
+      const features = [
+        {
+          title: 'Smart Scheduling',
+          description: 'Automated class scheduling with conflict detection and resolution',
+          icon: 'bi bi-calendar3',
+          image: './src/assets/landing/smart-scheduling.jpg'
+        },
+        {
+          title: 'Faculty Management',
+          description: 'Track and manage faculty workloads, availability, and assignments',
+          icon: 'bi bi-people',
+          image: './src/assets/landing/faculty-management.jpg'
+        },
+        {
+          title: 'Course Planning',
+          description: 'Organize courses, sections, and academic schedules efficiently',
+          icon: 'bi bi-book',
+          image: './src/assets/landing/course-planning.jpg'
+        },
+        {
+          title: 'Time Optimization',
+          description: 'Maximize resource utilization and minimize scheduling conflicts',
+          icon: 'bi bi-clock',
+          image: './src/assets/landing/time-optimization.jpg'
+        },
+        {
+          title: 'Analytics & Reports',
+          description: 'Generate comprehensive reports and insights on workload distribution',
+          icon: 'bi bi-bar-chart-line',
+          image: './src/assets/landing/analytics-reports.jpg'
+        },
+        {
+          title: 'Workload Tracking',
+          description: 'Monitor teaching loads and ensure equitable distribution',
+          icon: 'bi bi-clipboard-check',
+          image: './src/assets/landing/workload-tracking.jpg'
+        }
+      ]
+
+      function featureCard(feature) {
+        return `
+          <article class="overflow-hidden rounded-xl bg-white border border-slate-200 shadow-md hover:shadow-xl transition">
+            <div
+              class="relative h-56 bg-cover bg-center"
+              style="background-image: url('${feature.image}');"
+            >
+              <div class="absolute inset-0 bg-black/35"></div>
+
+              <i class="${feature.icon} absolute left-6 bottom-5 text-4xl text-white drop-shadow-lg"></i>
+            </div>
+
+            <div class="p-7">
+              <h3 class="text-xl font-bold text-slate-950">
+                ${feature.title}
+              </h3>
+
+              <p class="mt-4 text-base leading-relaxed text-slate-500">
+                ${feature.description}
+              </p>
+            </div>
+          </article>
+        `
+      }
+
+      featuresGrid.innerHTML = features.map(featureCard).join('')
+    </script>
   </body>
 </html>
-
-<style>
-  @import "./src/style.css";
-  
-</style>
-
-<script type="module">
-  import { routes, addLink } from './src/js/routes.js'
-  import { topBarNav } from './src/js/components/topBarNav.js'
-  import { navButton } from './src/js/components/navButton.js'
-
-  const header = document.getElementById('header');
-  const loginPageBtn = document.getElementById('loginPageBtn');
-
-  const links = 
-  navButton('bi bi-house', 'home', routes.public.home) +
-  navButton('bi bi-box-arrow-in-left', 'login', routes.public.login) + 
-  navButton('bi bi-vector-pen', 'register', routes.public.register)
-
-  header.innerHTML = topBarNav(links);
-
-  // addLink(loginPageBtn, routes.public.login);
-
-</script>
-
-
